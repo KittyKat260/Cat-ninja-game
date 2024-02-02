@@ -1,0 +1,60 @@
+# Save this as main.py or another name of your choosing.
+import pygame
+import sys
+
+# Initialize Pygame
+pygame.init()
+
+# Screen dimensions
+SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
+FPS = 60
+
+# Colors
+WHITE = (255, 255, 255)
+BLUE = (0, 0, 255)
+
+# Player properties
+player_size = (50, 50)
+player_pos = [SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2]
+player_speed = 5
+
+# Set up the display
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Cat Ninja and the Quest for the Magical Energy Crystals')
+
+def draw_player(position):
+    pygame.draw.rect(screen, BLUE, (position[0], position[1], player_size[0], player_size[1]))
+
+def game_loop():
+    running = True
+    clock = pygame.time.Clock()
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        # Player movement
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            player_pos[0] -= player_speed
+        if keys[pygame.K_RIGHT]:
+            player_pos[0] += player_speed
+        if keys[pygame.K_UP]:
+            player_pos[1] -= player_speed
+        if keys[pygame.K_DOWN]:
+            player_pos[1] += player_speed
+
+        # Game logic goes here
+
+        # Drawing code goes here
+        screen.fill(WHITE)
+        draw_player(player_pos)
+
+        pygame.display.flip()
+        clock.tick(FPS)
+
+    pygame.quit()
+    sys.exit()
+
+game_loop()
